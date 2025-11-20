@@ -5,11 +5,22 @@ import os
 from datetime import datetime
 from functools import lru_cache
 import time
+import json
 
 app = Flask(__name__)
 
 # ---- Google Sheet Config ----
+
+# Lokasi file service_account.json
 SERVICE_ACCOUNT_FILE = os.path.join(os.path.dirname(__file__), "service_account.json")
+
+# === Tambahan penting: Buat file dari ENV jika belum ada ===
+if not os.path.exists(SERVICE_ACCOUNT_FILE):
+    service_json = os.getenv("SERVICE_ACCOUNT_JSON")
+    if service_json:
+        with open(SERVICE_ACCOUNT_FILE, "w") as f:
+            f.write(service_json)
+
 SPREADSHEET_ID = "1Bj_ot_RMEs_usrIxZH8JPV99yThUUPR8CRHgJvbZ890"
 
 scope = [
@@ -17,6 +28,7 @@ scope = [
     "https://www.googleapis.com/auth/drive"
 ]
 
+# Load credentials setelah file dijamin tersedia
 creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
 client = gspread.authorize(creds)
 spreadsheet = client.open_by_key(SPREADSHEET_ID)
@@ -48,6 +60,7 @@ def is_duplicate_case(case_id):
             if existing == case_id:
                 return True
     return False
+
 # === Cache reset tiap 30 detik ===
 LAST_CACHE_RESET = time.time()
 
@@ -109,7 +122,6 @@ def add_suggestion():
     department = request.form.get("department","")
     product = request.form.get("product", "")
 
-
     if suggestion_text.strip():
         # Pastikan sheet Suggestions ada
         try:
@@ -129,7 +141,6 @@ def add_suggestion():
 
     # Redirect ke dashboard dengan query param untuk toast
     return redirect(url_for("index", suggestion_sent=1))
-
 
 # ---- Dashboard route ----
 @app.route("/")
@@ -154,23 +165,19 @@ def index():
 
             records = sheet.get_all_records()
 
-            # Normalisasi record agar semua sheet punya kolom konsisten
             for r in records:
                 r["_sheet"] = key
 
-                # Pastikan semua header ada di record (supaya tidak error)
                 for h in headers:
                     if h not in r:
                         r[h] = ""
 
             all_records.extend(records)
 
-    # === Kalau bukan Main: cuma ambil satu sheet seperti biasa ===
     else:
         sheet = spreadsheet.worksheet(AVAILABLE_SHEETS.get(selected_key, "AIA"))
         headers = sheet.row_values(1)
 
-        # Kalau Suggestions, tambahkan kolom internal
         if selected_key == "Suggestions":
             headers.append("_sheet")
 
@@ -179,19 +186,16 @@ def index():
         for r in all_records:
             r["_sheet"] = selected_key
 
-            # Tambahkan header yang mungkin tidak ada (aman untuk tabel)
             for h in headers:
                 if h not in r:
                     r[h] = ""
 
-    # --- Universal search ---
     def matches(r):
         text = " ".join([str(v) for v in r.values()])
         return search_query.lower() in text.lower()
 
     filtered = [r for r in all_records if matches(r)]
 
-    # Pagination
     total = len(filtered)
     start = (page - 1) * per_page
     end = start + per_page
@@ -207,7 +211,6 @@ def index():
         page=page,
         total_pages=total_pages
     )
-
 
 if __name__ == "__main__":
     app.run(debug=True)
