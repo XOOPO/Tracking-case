@@ -187,12 +187,23 @@ def index():
             r["_sheet"] = selected_key
 
             for h in headers:
-                if h not in r:
+                if h not in r or r[h] is None:
                     r[h] = ""
-
     def matches(r):
-        text = " ".join([str(v) for v in r.values()])
-        return search_query.lower() in text.lower()
+        try:
+            safe_values = []
+            for v in r.values():
+                if v is None:
+                    safe_values.append("")
+                else:
+                    safe_values.append(str(v))
+
+            text = " ".join(safe_values)
+            return search_query.lower() in text.lower()
+
+        except Exception as e:
+            print("SEARCH ERROR:", e)
+            return False
 
     filtered = [r for r in all_records if matches(r)]
 

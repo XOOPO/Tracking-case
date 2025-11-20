@@ -143,17 +143,21 @@
             background: #0f0c29;
             color: #00ffff;
         }
+        /* === FIX WRAPPING TEXT TABEL === */
         .table {
-            width: 100%;
+             width: 100%;
+             table-layout: fixed;  /* Biar kolom rapi & tidak melebar */
+             border-collapse: collapse;
         }
 
         .table th, .table td {
-            text-align: center;
-            vertical-align: middle;
-            padding: 10px;
-            white-space: normal;
-            overflow-wrap: break-word;
-            max-width: 200px;
+             text-align: center;
+             vertical-align: top;        /* Biar text mulai dari atas */
+             padding: 10px;
+             white-space: normal !important;   /* IZINKAN TEXT WRAP */
+             word-wrap: break-word;           /* Paksa text turun */
+             overflow-wrap: break-word;
+             max-width: 250px;
         }
 
         /* Running text */
@@ -253,6 +257,21 @@
              color: #000;
              border-color: #00ffff;
         }
+        /* Kolom Issue Description */
+th:nth-child(5), td:nth-child(4) {
+    width: 300px;
+    max-width: 300px;
+    white-space: normal;   /* text turun ke bawah */
+    word-wrap: break-word;
+}
+
+/* Kolom Remark / Notes */
+th:nth-child(8), td:nth-child(7) {
+    width: 380px;
+    max-width: 380px;
+    white-space: normal;
+    word-wrap: break-word;
+}
     </style>
 </head>
 <body>
