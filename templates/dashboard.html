@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Futuristic Case Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+         /* ==== SIDEBAR ==== */
+        .sidebar {
+            width: 290px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba(15, 15, 30, 0.95);
+            padding: 25px 20px;
+            border-right: 2px solid #00ffff55;
+            box-shadow: 0 0 25px rgba(0,255,255,0.2);
+            color: #00ffff;
+        }
+
+        .sidebar h3 {
+            font-weight: bold;
+            color: #E2FF4E;
+            text-shadow:
+                0 0 10px #c400ff,
+                0 0 20px #c400ff,
+                0 0 30px #c400ff;
+            margin-bottom: 70px;
+        }
+
+        .sidebar a {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #00ffff;
+    text-decoration: none;
+    text-shadow: 0 0 8px #00ffff;
+    padding: 8px 12px;
+    width: 100%;
+    border-radius: 6px;
+    transition: all 0.3s;
+}
+       .sidebar a:hover,
+.sidebar a.active-link {
+    background: rgba(0,255,255,0.25);
+}
+
+        /* --- Perbesar teks sidebar + efek neon --- */
+         .sidebar a {
+            font-size: 22px;        /* >>> Perbesar tulisan <<< */
+            font-weight: 700;       /* Tebalkan */
+            letter-spacing: 1px;    /* Spasi biar futuristik */
+            color: #00ffff;         /* Neon */
+            text-shadow: 0 0 8px #00ffff;
+          }
+          .active-link {
+            background: rgba(0,255,255,0.25) !important;
+            color: #00ffff !important;
+            text-shadow: 0 0 8px #00ffff;
+          }
+
+        /* Geser container utama ke kanan */
+        .main-container {
+            margin-left: 260px;
+            padding-top: 50px;
+            padding-right: 25px;
+            padding-left: 25px;
+        }
+
+        /* Background futuristik */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+
+        .container {
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .card {
+            background: rgba(20, 20, 30, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+            border: 1px solid rgba(0,255,255,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+        }
+
+        h2 {
+            color: #00ffff;
+            text-shadow: 0 0 8px #00ffff;
+        }
+
+        .btn-primary {
+            background: #00ffff;
+            color: #000;
+            font-weight: bold;
+            border: none;
+            box-shadow: 0 0 10px #00ffff;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #00d4d4;
+            box-shadow: 0 0 20px #00ffff;
+            color: #fff;
+        }
+
+        .table thead th {
+            background: rgba(0,255,255,0.15);
+            color: #00ffff;
+            border-bottom: 1px solid #00ffff;
+            font-weight: bold;
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(0, 255, 255, 0.05);
+        }
+
+        label.fw-semibold {
+            color: #00ffff;
+            margin-bottom: 6px;
+        }
+
+        select.form-select {
+            border-radius: 8px;
+            background: rgba(0,0,0,0.8);
+            color: #00ffff;
+            border: 1px solid #00ffff;
+        }
+
+        select.form-select option {
+            background: #0f0c29;
+            color: #00ffff;
+        }
+        .table {
+            width: 100%;
+        }
+
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+            padding: 10px;
+            white-space: normal;
+            overflow-wrap: break-word;
+            max-width: 200px;
+        }
+
+        /* Running text */
+        .running-text-wrapper {
+            position: fixed;
+            top: 0;
+            left: 290px; /* mengikuti width sidebar */
+            right: 0;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.65);
+            padding-left: 10px;
+            z-index: 9999;
+            overflow: hidden;
+            color: #CCFF00;
+        }
+
+        .running-text {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            animation: runtext 16s linear infinite;
+        }
+
+        @keyframes runtext {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .telegram-link {
+            color: #00ffff;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .telegram-link:hover {
+            text-shadow: 0 0 8px #00ffff, 0 0 16px #00ffff, 0 0 24px #00ffff;
+            color: #00ffff;
+        }
+
+        .highlight {
+            background-color: yellow;
+            color: black;
+            font-weight: bold;
+        }
+
+        /* Modal style */
+        .modal-content {
+            background: rgba(20,20,30,0.95);
+            color: #e0e0e0;
+            border-radius: 15px;
+        }
+        .modal-header, .modal-footer {
+            border: none;
+        }
+        .modal-body input, .modal-body textarea {
+            margin-bottom: 12px;
+        }
+        .modal-body textarea {
+            width: 100%;
+            background: #0f0c29;
+            color: #00ffff;
+            border: 1px solid #00ffff;
+            border-radius: 8px;
+            padding: 10px;
+            min-height: 100px;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1060;
+        }
+        .toast {
+            background: #00ffff;
+            color: #000;
+            font-weight: bold;
+        }
+       /* Agar main content tidak naik terlalu dekat ke running text */
+        .main-container {
+         margin-left: 290px;
+         padding-top: 70px; /* beri space untuk running text */
+         }
+
+        .card {
+             margin-top: 20px;
+             overflow-x: auto;
+        }
+        .pagination .active .page-link {
+             background-color: #00ffff;
+             color: #000;
+             border-color: #00ffff;
+        }
+    </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h3>TRACKING CASE</h3>
+
+    <a href="/?sheet=Main" class="{% if selected_sheet == 'MAIN' %}active-link{% endif %}">Main</a>
+    <a href="/?sheet=AIA" class="{% if selected_sheet == 'AIA' %}active-link{% endif %}">AIA</a>
+    <a href="/?sheet=OCR" class="{% if selected_sheet == 'OCR' %}active-link{% endif %}">OCR</a>
+    <a href="/?sheet=MYR" class="{% if selected_sheet == 'MYR' %}active-link{% endif %}">MYR</a>
+    <a href="/?sheet=SGD" class="{% if selected_sheet == 'SGD' %}active-link{% endif %}">SGD</a>
+    <a href="/?sheet=CRM" class="{% if selected_sheet == 'CRM' %}active-link{% endif %}">CRM</a>
+    <a href="/?sheet=CTX" class="{% if selected_sheet == 'CTX' %}active-link{% endif %}">CTX</a>
+    <a href="/?sheet=GRP" class="{% if selected_sheet == 'GRP' %}active-link{% endif %}">GRP</a>
+    <a href="/?sheet=Suggestions" class="{% if selected_sheet == 'Suggestions' %}active-link{% endif %}">Suggestion</a>
+</div>
+
+<!-- Running text -->
+<div class="running-text-wrapper">
+    <div class="running-text">
+        🔔 Latest update: The dashboard data is automatically update every day! 🔔
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-container">
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">📊 Tracking Case Dashboard</h2>
+        <div>
+            <a href="/add" class="btn btn-primary me-2">➕ Add Case</a>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#suggestionModal">💡 Add Suggestion</button>
+        </div>
+    </div>
+
+    <form method="GET" action="/" class="d-flex mb-3">
+        <input type="hidden" name="sheet" value="{{ selected_sheet }}">
+        <input type="text" name="search" placeholder="Search Case ID..." value="{{ search_query }}" class="form-control w-25 me-2">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <div class="card p-3 shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-light">
+                <thead>
+                    <tr>
+                        {% for h in headers %}
+                            <th>{{ h }}</th>
+                        {% endfor %}
+                        <th>Telegram Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in records %}
+                    <tr>
+                        {% for h in headers %}
+                        <td>
+                            {% if search_query %}
+                                {{ row[h]|string|replace(search_query, '<span class="highlight">' + search_query + '</span>')|safe }}
+                            {% else %}
+                                {{ row[h] }}
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                        <td>
+                            {% if row['Telegram Link'] %}
+                                <a href="{{ row['Telegram Link'] }}" target="_blank" class="text-info fw-bold">Open</a>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+        {% if total_pages > 1 %}
+        <nav>
+            <ul class="pagination">
+                {% if page > 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="?sheet={{ selected_sheet }}&page={{ page-1 }}&search={{ search_query }}">Previous</a>
+                </li>
+                {% endif %}
+
+                {% for p in range(1, total_pages + 1) %}
+                <li class="page-item {% if p == page %}active{% endif %}">
+                    <a class="page-link" href="?sheet={{ selected_sheet }}&page={{ p }}&search={{ search_query }}">{{ p }}</a>
+                </li>
+                {% endfor %}
+
+                {% if page < total_pages %}
+                <li class="page-item">
+                    <a class="page-link" href="?sheet={{ selected_sheet }}&page={{ page+1 }}&search={{ search_query }}">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Suggestion Modal -->
+<div class="modal fade" id="suggestionModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" action="/add_suggestion">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">💡 Add Suggestion</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+              <input type="text" name="user_name" placeholder="Your Name (optional)" class="form-control mb-2">
+              <input type="text" name="department" placeholder="Department" class="form-control mb-2">
+              <input type="text" name="product" placeholder="Product" class="form-control mb-2">
+              <textarea name="suggestion" placeholder="Write your suggestion here..." required></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast-container">
+  {% if request.args.get('suggestion_sent') %}
+  <div class="toast align-items-center show" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        ✅ Suggestion sent!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Auto hide toast after 5 seconds
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const toastEl = document.querySelector('.toast');
+        if(toastEl) {
+            setTimeout(() => {
+                const toast = bootstrap.Toast.getOrCreateInstance(toastEl);
+                toast.hide();
+            }, 5000);
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+{% if error %}
+<div style="padding:10px; background:#ffcccc; color:#b30000; border-radius:5px; margin-bottom:15px;">
+    {{ error }}
+</div>
+{% endif %}
+<head>
+    <title>Add Case</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f6f7fb;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: auto;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #4c6ef5;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #3b5bdb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Add New Case</h2>
+
+    <form method="POST">
+        <label>Case ID</label>
+        <input type="text" name="case_id" required>
+
+        <label>Date & Time</label>
+        <input type="datetime-local" name="datetime" required>
+
+        <label>Brand name</label>
+        <input type="text" name="brand_name" required>
+
+        <label for="channel">Channel</label>
+        <select name="channel" id="channel">
+            <option value="">--Pilih Channel--</option>
+            <option value="Other">OTHER</option>
+            <option value="WS">WS</option>
+            <option value="TG">TG</option>
+            <option value="WS/TG">WS/TG</option>
+        </select>
+
+        <label>Description</label>
+        <textarea name="description" required></textarea>
+
+        <label for="assigned">Assigned To</label>
+        <input type="text" id="assigned" name="assigned_to">
+
+        <label>Status</label>
+        <input type="text" name="status" required>
+
+        <label>Remark</label>
+        <textarea name="remark"></textarea>
+
+        <label>Category</label>
+        <select name="category" required>
+            {% for key in sheet_options %}
+                <option value="{{ key }}">{{ key }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- NEW: Telegram Link -->
+        <label>Telegram Link</label>
+        <input type="url" name="telegram_link" placeholder="https://t.me/...">
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <a href="/">← Back to Dashboard</a>
+</div>
+
+</body>
+</html>
