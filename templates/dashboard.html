@@ -3,275 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <title>Futuristic Case Dashboard</title>
+
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
-         /* ==== SIDEBAR ==== */
-        .sidebar {
-            width: 290px;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background: rgba(15, 15, 30, 0.95);
-            padding: 25px 20px;
-            border-right: 2px solid #00ffff55;
-            box-shadow: 0 0 25px rgba(0,255,255,0.2);
-            color: #00ffff;
-        }
 
-        .sidebar h3 {
-            font-weight: bold;
-            color: #E2FF4E;
-            text-shadow:
-                0 0 10px #c400ff,
-                0 0 20px #c400ff,
-                0 0 30px #c400ff;
-            margin-bottom: 70px;
-        }
+    /* ===== NEW MODERN SIDEBAR ===== */
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: #0d0f15;
+        padding: 20px 18px;
+        border-right: 1px solid #1f1f1f;
+        color: #ccc;
+        z-index: 1000;
+    }
 
-        .sidebar a {
-    display: block;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: #00ffff;
-    text-decoration: none;
-    text-shadow: 0 0 8px #00ffff;
-    padding: 8px 12px;
-    width: 100%;
-    border-radius: 6px;
-    transition: all 0.3s;
-}
-       .sidebar a:hover,
-.sidebar a.active-link {
-    background: rgba(0,255,255,0.25);
-}
+    .sidebar h3 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 35px;
+        color: #fff;
+    }
 
-        /* --- Perbesar teks sidebar + efek neon --- */
-         .sidebar a {
-            font-size: 22px;        /* >>> Perbesar tulisan <<< */
-            font-weight: 700;       /* Tebalkan */
-            letter-spacing: 1px;    /* Spasi biar futuristik */
-            color: #00ffff;         /* Neon */
-            text-shadow: 0 0 8px #00ffff;
-          }
-          .active-link {
-            background: rgba(0,255,255,0.25) !important;
-            color: #00ffff !important;
-            text-shadow: 0 0 8px #00ffff;
-          }
+    .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 19px;          /* ⬅️ HURUF LEBIH BESAR */
+        font-weight: 600;         /* ⬅️ LEBIH TEBAL */
+        padding: 12px 16px;       /* ⬅️ LEBIH LEBAR & RAPI */
+        margin-bottom: 10px;
+        border-radius: 12px;
+        text-decoration: none;
+        color: #f5f5f5;
+        transition: 0.25s;
+    }
 
-        /* Geser container utama ke kanan */
-        .main-container {
-            margin-left: 260px;
-            padding-top: 50px;
-            padding-right: 25px;
-            padding-left: 25px;
-        }
+    .sidebar a:hover {
+        background: #1b1d24;
+    }
 
-        /* Background futuristik */
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            min-height: 100vh;
-            color: #e0e0e0;
-        }
+    .sidebar a.active-link {
+        background: #3b82f6;
+        color: #fff;
+    }
 
-        .container {
-            padding-top: 50px;
-            padding-bottom: 50px;
-        }
+    .sidebar a i {
+        font-size: 20px;
+    }
 
-        .card {
-            background: rgba(20, 20, 30, 0.9);
-            border-radius: 15px;
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
-            border: 1px solid rgba(0,255,255,0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+    /* BACKGROUND */
+    body {
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        font-family: Arial, sans-serif;
+        color: #e0e0e0;
+        overflow-x: hidden;
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
-        }
+    /* MAIN CONTENT */
+    .main-container {
+        margin-left: 250px;
+        padding: 80px 30px 40px 30px;
+        max-width: 2400px;
+    }
 
-        h2 {
-            color: #00ffff;
-            text-shadow: 0 0 8px #00ffff;
-        }
+    /* RUNNING TEXT */
+    .running-text-wrapper {
+        position: fixed;
+        top: 0;
+        left: 250px;
+        right: 0;
+        height: 40px;
+        background: rgba(0,0,0,0.6);
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+        color: #CCFF00;
+        z-index: 2000;
+        overflow: hidden;
+    }
 
-        .btn-primary {
-            background: #00ffff;
-            color: #000;
-            font-weight: bold;
-            border: none;
-            box-shadow: 0 0 10px #00ffff;
-            transition: all 0.3s ease;
-        }
+    .running-text {
+        white-space: nowrap;
+        padding-left: 100%;
+        animation: runtext 16s linear infinite;
+        font-weight: bold;
+        font-size: 18px;
+    }
 
-        .btn-primary:hover {
-            background: #00d4d4;
-            box-shadow: 0 0 20px #00ffff;
-            color: #fff;
-        }
+    @keyframes runtext {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
 
-        .table thead th {
-            background: rgba(0,255,255,0.15);
-            color: #00ffff;
-            border-bottom: 1px solid #00ffff;
-            font-weight: bold;
-        }
+    /* CARD */
+    .card {
+        background: rgba(20,20,30,0.9);
+        border-radius: 15px;
+        box-shadow: 0 0 25px rgba(0,255,255,0.4);
+        border: 1px solid rgba(0,255,255,0.3);
+        padding: 20px;
+    }
 
-        .table tbody tr:hover {
-            background-color: rgba(0, 255, 255, 0.05);
-        }
+    /* TABLE */
+    .table-wrapper-fix {
+        width: 100%;
+        overflow-x: visible !important;
+    }
 
-        label.fw-semibold {
-            color: #00ffff;
-            margin-bottom: 6px;
-        }
+    table.table {
+        width: 100% !important;
+        table-layout: fixed !important;
+        border-collapse: collapse;
+    }
 
-        select.form-select {
-            border-radius: 8px;
-            background: rgba(0,0,0,0.8);
-            color: #00ffff;
-            border: 1px solid #00ffff;
-        }
+    .table th,
+    .table td {
+        text-align: center !important;
+        vertical-align: middle !important;
+        padding: 10px 12px;
+        white-space: normal !important;
+        word-break: break-word;
+    }
 
-        select.form-select option {
-            background: #0f0c29;
-            color: #00ffff;
-        }
-        /* === FIX WRAPPING TEXT TABEL === */
-        .table {
-             width: 100%;
-             table-layout: fixed;  /* Biar kolom rapi & tidak melebar */
-             border-collapse: collapse;
-        }
+    .table thead th {
+        background: rgba(0,255,255,0.15);
+        color: #00ffff;
+        border-bottom: 1px solid #00ffff;
+        font-weight: bold;
+    }
 
-        .table th, .table td {
-             text-align: center;
-             vertical-align: top;        /* Biar text mulai dari atas */
-             padding: 10px;
-             white-space: normal !important;   /* IZINKAN TEXT WRAP */
-             word-wrap: break-word;           /* Paksa text turun */
-             overflow-wrap: break-word;
-             max-width: 250px;
-        }
+    th:nth-child(1), td:nth-child(1) { width: 5%; }
+    th:nth-child(2), td:nth-child(2) { width: 8%; }
+    th:nth-child(3), td:nth-child(3) { width: 5%; }
+    th:nth-child(4), td:nth-child(4) { width: 5%; }
+    th:nth-child(5), td:nth-child(5) { width: 18%; }
+    th:nth-child(6), td:nth-child(6) { width: 6%; }
+    th:nth-child(7), td:nth-child(7) { width: 6%; }
+    th:nth-child(8), td:nth-child(8) { width: 20%; }
+    th:nth-child(9), td:nth-child(9) { width: 8%; }
+    th:nth-child(10), td:nth-child(10) { width: 9%; }
+    th:nth-child(11), td:nth-child(10) { width: 8%; }
 
-        /* Running text */
-        .running-text-wrapper {
-            position: fixed;
-            top: 0;
-            left: 290px; /* mengikuti width sidebar */
-            right: 0;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.65);
-            padding-left: 10px;
-            z-index: 9999;
-            overflow: hidden;
-            color: #CCFF00;
-        }
+    .highlight {
+        background: yellow;
+        color: black;
+        font-weight: bold;
+    }
 
-        .running-text {
-            display: inline-block;
-            white-space: nowrap;
-            padding-left: 100%;
-            font-size: 18px;
-            font-weight: bold;
-            animation: runtext 16s linear infinite;
-        }
+    .pagination .active .page-link {
+        background-color: #00ffff;
+        color: #000;
+        border-color: #00ffff;
+    }
 
-        @keyframes runtext {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-
-        .telegram-link {
-            color: #00ffff;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .telegram-link:hover {
-            text-shadow: 0 0 8px #00ffff, 0 0 16px #00ffff, 0 0 24px #00ffff;
-            color: #00ffff;
-        }
-
-        .highlight {
-            background-color: yellow;
-            color: black;
-            font-weight: bold;
-        }
-
-        /* Modal style */
-        .modal-content {
-            background: rgba(20,20,30,0.95);
-            color: #e0e0e0;
-            border-radius: 15px;
-        }
-        .modal-header, .modal-footer {
-            border: none;
-        }
-        .modal-body input, .modal-body textarea {
-            margin-bottom: 12px;
-        }
-        .modal-body textarea {
-            width: 100%;
-            background: #0f0c29;
-            color: #00ffff;
-            border: 1px solid #00ffff;
-            border-radius: 8px;
-            padding: 10px;
-            min-height: 100px;
-        }
-
-        /* Toast */
-        .toast-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1060;
-        }
-        .toast {
-            background: #00ffff;
-            color: #000;
-            font-weight: bold;
-        }
-       /* Agar main content tidak naik terlalu dekat ke running text */
-        .main-container {
-         margin-left: 290px;
-         padding-top: 70px; /* beri space untuk running text */
-         }
-
-        .card {
-             margin-top: 20px;
-             overflow-x: auto;
-        }
-        .pagination .active .page-link {
-             background-color: #00ffff;
-             color: #000;
-             border-color: #00ffff;
-        }
-        /* Kolom Issue Description */
-th:nth-child(5), td:nth-child(4) {
-    width: 300px;
-    max-width: 300px;
-    white-space: normal;   /* text turun ke bawah */
-    word-wrap: break-word;
-}
-
-/* Kolom Remark / Notes */
-th:nth-child(8), td:nth-child(7) {
-    width: 380px;
-    max-width: 380px;
-    white-space: normal;
-    word-wrap: break-word;
-}
     </style>
 </head>
 <body>
@@ -280,49 +176,77 @@ th:nth-child(8), td:nth-child(7) {
 <div class="sidebar">
     <h3>TRACKING CASE</h3>
 
-    <a href="/?sheet=Main" class="{% if selected_sheet == 'MAIN' %}active-link{% endif %}">Main</a>
-    <a href="/?sheet=AIA" class="{% if selected_sheet == 'AIA' %}active-link{% endif %}">AIA</a>
-    <a href="/?sheet=OCR" class="{% if selected_sheet == 'OCR' %}active-link{% endif %}">OCR</a>
-    <a href="/?sheet=MYR" class="{% if selected_sheet == 'MYR' %}active-link{% endif %}">MYR</a>
-    <a href="/?sheet=SGD" class="{% if selected_sheet == 'SGD' %}active-link{% endif %}">SGD</a>
-    <a href="/?sheet=CRM" class="{% if selected_sheet == 'CRM' %}active-link{% endif %}">CRM</a>
-    <a href="/?sheet=CTX" class="{% if selected_sheet == 'CTX' %}active-link{% endif %}">CTX</a>
-    <a href="/?sheet=GRP" class="{% if selected_sheet == 'GRP' %}active-link{% endif %}">GRP</a>
-    <a href="/?sheet=Suggestions" class="{% if selected_sheet == 'Suggestions' %}active-link{% endif %}">Suggestion</a>
+    <a href="/?sheet=Main" class="{% if selected_sheet == 'MAIN' %}active-link{% endif %}">
+        <i class="bi bi-grid"></i> Main
+    </a>
+
+    <a href="/?sheet=AIA" class="{% if selected_sheet == 'AIA' %}active-link{% endif %}">
+        <i class="bi bi-envelope"></i> AIA
+    </a>
+
+    <a href="/?sheet=OCR" class="{% if selected_sheet == 'OCR' %}active-link{% endif %}">
+        <i class="bi bi-file-earmark-text"></i> OCR
+    </a>
+
+    <a href="/?sheet=MYR" class="{% if selected_sheet == 'MYR' %}active-link{% endif %}">
+        <i class="bi bi-currency-dollar"></i> MYR
+    </a>
+
+    <a href="/?sheet=SGD" class="{% if selected_sheet == 'SGD' %}active-link{% endif %}">
+        <i class="bi bi-cash-coin"></i> SGD
+    </a>
+
+    <a href="/?sheet=CRM" class="{% if selected_sheet == 'CRM' %}active-link{% endif %}">
+        <i class="bi bi-person-lines-fill"></i> CRM
+    </a>
+
+    <a href="/?sheet=CTX" class="{% if selected_sheet == 'CTX' %}active-link{% endif %}">
+        <i class="bi bi-diagram-3"></i> CTX
+    </a>
+
+    <a href="/?sheet=GRP" class="{% if selected_sheet == 'GRP' %}active-link{% endif %}">
+        <i class="bi bi-people"></i> GRP
+    </a>
+
+    <a href="/?sheet=Suggestions" class="{% if selected_sheet == 'Suggestions' %}active-link{% endif %}">
+        <i class="bi bi-lightbulb"></i> Suggestion
+    </a>
 </div>
 
-<!-- Running text -->
+<!-- RUNNING TEXT -->
 <div class="running-text-wrapper">
     <div class="running-text">
-        🔔 Latest update: The dashboard data is automatically update every day! 🔔
+        🔔 Latest update: The dashboard data is automatically updated every day! 🔔
     </div>
 </div>
 
 <!-- MAIN CONTENT -->
 <div class="main-container">
 
-<div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold">📊 Tracking Case Dashboard</h2>
+        <h2 class="fw-bold text-info">📊 Tracking Case Dashboard</h2>
+
         <div>
             <a href="/add" class="btn btn-primary me-2">➕ Add Case</a>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#suggestionModal">💡 Add Suggestion</button>
         </div>
     </div>
 
+    <!-- SEARCH -->
     <form method="GET" action="/" class="d-flex mb-3">
         <input type="hidden" name="sheet" value="{{ selected_sheet }}">
-        <input type="text" name="search" placeholder="Search Case ID..." value="{{ search_query }}" class="form-control w-25 me-2">
+        <input type="text" name="search" placeholder="Search Case ID..." class="form-control w-25 me-2" value="{{ search_query }}">
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
 
-    <div class="card p-3 shadow-sm">
-        <div class="table-responsive">
+    <!-- TABLE -->
+    <div class="card">
+        <div class="table-wrapper-fix">
             <table class="table table-bordered table-hover text-light">
                 <thead>
                     <tr>
                         {% for h in headers %}
-                            <th>{{ h }}</th>
+                        <th>{{ h }}</th>
                         {% endfor %}
                         <th>Telegram Link</th>
                     </tr>
@@ -353,82 +277,33 @@ th:nth-child(8), td:nth-child(7) {
         </div>
     </div>
 
+    <!-- PAGINATION -->
     <div class="d-flex justify-content-center mt-3">
         {% if total_pages > 1 %}
         <nav>
             <ul class="pagination">
                 {% if page > 1 %}
-                <li class="page-item">
-                    <a class="page-link" href="?sheet={{ selected_sheet }}&page={{ page-1 }}&search={{ search_query }}">Previous</a>
-                </li>
+                <li class="page-item"><a class="page-link" href="?sheet={{selected_sheet}}&page={{page-1}}&search={{search_query}}">Previous</a></li>
                 {% endif %}
 
-                {% for p in range(1, total_pages + 1) %}
+                {% for p in range(1, total_pages+1) %}
                 <li class="page-item {% if p == page %}active{% endif %}">
-                    <a class="page-link" href="?sheet={{ selected_sheet }}&page={{ p }}&search={{ search_query }}">{{ p }}</a>
+                    <a class="page-link" href="?sheet={{selected_sheet}}&page={{p}}&search={{search_query}}">{{p}}</a>
                 </li>
                 {% endfor %}
 
                 {% if page < total_pages %}
-                <li class="page-item">
-                    <a class="page-link" href="?sheet={{ selected_sheet }}&page={{ page+1 }}&search={{ search_query }}">Next</a>
-                </li>
+                <li class="page-item"><a class="page-link" href="?sheet={{selected_sheet}}&page={{page+1}}&search={{search_query}}">Next</a></li>
                 {% endif %}
             </ul>
         </nav>
         {% endif %}
     </div>
+
 </div>
 
-<!-- Suggestion Modal -->
-<div class="modal fade" id="suggestionModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <form method="POST" action="/add_suggestion">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">💡 Add Suggestion</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-              <input type="text" name="user_name" placeholder="Your Name (optional)" class="form-control mb-2">
-              <input type="text" name="department" placeholder="Department" class="form-control mb-2">
-              <input type="text" name="product" placeholder="Product" class="form-control mb-2">
-              <textarea name="suggestion" placeholder="Write your suggestion here..." required></textarea>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Send</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Toast -->
-<div class="toast-container">
-  {% if request.args.get('suggestion_sent') %}
-  <div class="toast align-items-center show" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body">
-        ✅ Suggestion sent!
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-  </div>
-  {% endif %}
-</div>
-
+<!-- BOOTSTRAP -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  // Auto hide toast after 5 seconds
-    window.addEventListener('DOMContentLoaded', (event) => {
-        const toastEl = document.querySelector('.toast');
-        if(toastEl) {
-            setTimeout(() => {
-                const toast = bootstrap.Toast.getOrCreateInstance(toastEl);
-                toast.hide();
-            }, 5000);
-        }
-    });
-</script>
+
 </body>
 </html>
