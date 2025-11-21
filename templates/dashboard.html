@@ -209,7 +209,7 @@
     </a>
 
     <a href="/?sheet=Suggestions" class="{% if selected_sheet == 'Suggestions' %}active-link{% endif %}">
-        <i class="bi bi-lightbulb"></i> Suggestion
+        <i class="bi bi-lightbulb"></i> Suggestions
     </a>
 </div>
 
@@ -231,6 +231,48 @@
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#suggestionModal">💡 Add Suggestion</button>
         </div>
     </div>
+
+    <div class="modal fade" id="suggestionModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background:#1b1d24; color:white;">
+            <div class="modal-header">
+                <h5 class="modal-title">Submit a Suggestion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="/add_suggestion" method="POST">
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label>Your Name</label>
+                        <input type="text" name="user_name" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Department</label>
+                        <input type="text" name="department" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Product</label>
+                        <input type="text" name="product" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Your Suggestion</label>
+                        <textarea name="suggestion" rows="4" class="form-control" required></textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
     <!-- SEARCH -->
     <form method="GET" action="/" class="d-flex mb-3">

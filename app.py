@@ -148,7 +148,7 @@ def index():
     selected_key = request.args.get("sheet", "AIA")
     search_query = request.args.get("search", "").strip()
     page = int(request.args.get("page", 1))
-    per_page = 10
+    per_page = 5
 
     all_records = []
     headers = None
