@@ -286,34 +286,36 @@
         <div class="table-wrapper-fix">
             <table class="table table-bordered table-hover text-light">
                 <thead>
-                    <tr>
-                        {% for h in headers %}
-                        <th>{{ h }}</th>
-                        {% endfor %}
-                        <th>Telegram Link</th>
-                    </tr>
+                     <tr>
+        {% for h in headers %}
+<th>
+    {% if h == '_sheet' %}
+        Category
+    {% else %}
+        {{ h }}
+    {% endif %}
+</th>
+{% endfor %}
+    </tr>
                 </thead>
                 <tbody>
-                    {% for row in records %}
-                    <tr>
-                        {% for h in headers %}
-                        <td>
-                            {% if search_query %}
-                                {{ row[h]|string|replace(search_query, '<span class="highlight">' + search_query + '</span>')|safe }}
-                            {% else %}
-                                {{ row[h] }}
-                            {% endif %}
-                        </td>
-                        {% endfor %}
-                        <td>
-                            {% if row['Telegram Link'] %}
-                                <a href="{{ row['Telegram Link'] }}" target="_blank" class="text-info fw-bold">Open</a>
-                            {% else %}
-                                -
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
+                   {% for row in records %}
+    <tr>
+        {% for h in headers %}
+        <td>
+            {% if h == "Telegram Link" and row[h] %}
+                <a href="{{ row[h] }}" target="_blank" class="text-info fw-bold">Open</a>
+            {% else %}
+                {% if search_query %}
+                    {{ row[h]|string|replace(search_query, '<span class="highlight">' + search_query + '</span>')|safe }}
+                {% else %}
+                    {{ row[h] }}
+                {% endif %}
+            {% endif %}
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
                 </tbody>
             </table>
         </div>
